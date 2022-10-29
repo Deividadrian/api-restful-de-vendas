@@ -1,24 +1,35 @@
 import authConfig from '@config/auth';
-import AppError from '../../shared/errors/AppError';
+import AppError from '../../errors/AppError';
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
+interface TokenPayload {
+    iat: number;
+    exp: number;
+    sub: string;
+}
 
 export default function isAutenticated( // Um middleware recebe pelo menos tres parametro request, response e o next
     request: Request,
     response: Response,
     next: NextFunction,
     ): void {
-        const authHeder = request.headers.authorization;
+        const authHeader = request.headers.authorization;
 
-        if(!authHeder){
+        if(!authHeader){
             throw new AppError('JWT Token is missing.')
         }
 
-        const [,token] = authHeder.split(' ');
+        const [,token] = authHeader.split(' ');
 
         try {
-            const decodeToken = verify(token, authConfig.jwt.secret)
+            const decodedToken = verify(token, authConfig.jwt.secret)
+
+            const { sub } = decodedToken as TokenPayload;
+
+            request.user = {
+                id: sub,
+            }
 
             return next();
         } catch {
