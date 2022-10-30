@@ -25,6 +25,8 @@ export default function isAutenticated( // Um middleware recebe pelo menos tres 
         try {
             const decodedToken = verify(token, authConfig.jwt.secret)
 
+            console.log(decodedToken);
+
             const { sub } = decodedToken as TokenPayload;
 
             request.user = {
