@@ -1,4 +1,4 @@
-import { UserRepository } from './../typeorm/repositories/UsersRepository';
+import UserRepository from './../typeorm/repositories/UsersRepository';
 import { getCustomRepository } from "typeorm";
 import User from '../typeorm/entities/User';
 
