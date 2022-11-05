@@ -10,7 +10,7 @@ const usersRouter = Router();
 const usersController = new UsersController();
 const usersAvatarController = new UserAvatarController();
 
-const apload = multer(uploadConfig);
+const upload = multer(uploadConfig);
 
 usersRouter.get('/', isAutenticated, usersController.index);
 
@@ -63,7 +63,7 @@ usersRouter.delete(
   usersRouter.patch(
     '/avatar',
     isAutenticated,
-    apload.single('avatar'),
+    upload.single('avatar'),
     usersAvatarController.update,
   )
 
