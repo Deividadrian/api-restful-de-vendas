@@ -7,7 +7,7 @@ interface IRequest {
     email: string;
 }
 
-class SendForgotPasswordService {
+class SendForgotPasswordEmailService {
     public async execute({ email }: IRequest): Promise<void> {
         const usersRepository = getCustomRepository(UserRepository);
         const userTokensRepository = getCustomRepository(UserTokensRepository);
@@ -25,4 +25,4 @@ class SendForgotPasswordService {
     }
 }
 
-export default SendForgotPasswordService;
+export default SendForgotPasswordEmailService;
