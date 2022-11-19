@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
 
-export class AddCustomerIdToOrdersProducts1668641311947 implements MigrationInterface {
+export class AddOrderIdToOrdersProducts1668822705341 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.addColumn(
