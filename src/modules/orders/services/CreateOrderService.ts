@@ -26,6 +26,8 @@ class CreateOrderService {
         if(!customersExists) {
             throw new AppError('Could not find any customer with the given id');
         }
+
+        const existsProducts = await productsRepository.findByIds(products);
     }
 }
 
