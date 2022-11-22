@@ -1,9 +1,9 @@
-import { ProductRepository } from './../../products/typeorm/repositories/ProductsRepository';
 import CustomersRepository from '@modules/customers/typeorm/repositories/CustomersRepository';
+import ProductRepository from '@modules/products/typeorm/repositories/ProductsRepository';
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository, getRepository } from "typeorm";
+import { getCustomRepository } from "typeorm";
 import Order from '../typeorm/entities/Order';
-import { OrdersRepository } from '../typeorm/repositories/OredrsRepository';
+import OrdersRepository from '../typeorm/repositories/OredrsRepository';
 
 interface IProduct {
     id: string;
@@ -19,7 +19,7 @@ class CreateOrderService {
     public async execute({customer_id, products}: IRequest): Promise<Order> {
         const ordersRepository = getCustomRepository(OrdersRepository);
         const customersRepository = getCustomRepository(CustomersRepository);
-        const productsRepository = getRepository(ProductRepository);
+        const productsRepository = getCustomRepository(ProductRepository);
 
         const customersExists = await customersRepository.findById(customer_id);
 
@@ -32,7 +32,7 @@ class CreateOrderService {
         if(!existsProducts.length) {
             throw new AppError('Could not find any products with the given ids.');
         }
-        //@ts-ignore
+
         const existsProductsIds = existsProducts.map(product => product.id);
 
         const checkInexixtentProduct = products.filter(
@@ -45,7 +45,7 @@ class CreateOrderService {
 
         const quantityAvailable = products.filter(
             product =>
-            //@ts-ignore
+
               existsProducts.filter(p => p.id === product.id)[0].quantity <
             //@ts-ignore
               product.quantity,
