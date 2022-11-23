@@ -18,7 +18,7 @@ class ProductRepository extends Repository<Product> {
         return product;
     }
 
-    public async findAllById(products: IFindProducts[]): Promise<Product[]> {
+    public async findAllByIds(products: IFindProducts[]): Promise<Product[]> {
         const productIds = products.map(product => product.id)
 
         const existsProducts = await this.find({
