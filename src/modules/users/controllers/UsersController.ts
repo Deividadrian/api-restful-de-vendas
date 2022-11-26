@@ -24,15 +24,4 @@ export default class UsersController {
 
       return response.json(instanceToInstance(users));
     }
-
-    public async delete(request: Request, response: Response): Promise<Response> {
-      const {id} = request.params;
-
-      const deleteUser = new DeleteUserService();
-
-      await deleteUser.execute({ id });
-
-      return response.json([]);
-    }
-
   }
