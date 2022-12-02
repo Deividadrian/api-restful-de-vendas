@@ -16,9 +16,6 @@ class ListProductService {
 
            await redisCache.save('api-vendas-PRODUCT_LIST', products)
         }
-
-        await redisCache.save('teste', 'teste');
-
         return products;
     }
 }
